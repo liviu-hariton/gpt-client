@@ -1,3 +1,8 @@
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/liviu-hariton/gpt-client)
+![GitHub issues](https://img.shields.io/github/issues/liviu-hariton/gpt-client)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/liviu-hariton/gpt-client)
+![GitHub](https://img.shields.io/github/license/liviu-hariton/gpt-client)
+
 # ChatGPT client
 
 A simple application (built with Electron) that loads the [ChatGPT](https://chatgpt.com/) website and can be toggled using a global hotkey for easy access. The app supports persistent sessions (cookies and local storage) so that users remain logged in or remembered between sessions.
