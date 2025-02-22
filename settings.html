@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <style>
+        :root {
+            --background-light: #ffffff;
+            --background-dark: #121212;
+            --text-light: #000000;
+            --text-dark: #ffffff;
+            --card-light: #f5f5f5;
+            --card-dark: #1e1e1e;
+            --button-light: #007bff;
+            --button-dark: #3a7bd5;
+            --border-light: #ddd;
+            --border-dark: #444;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="checkbox"] {
+            transform: scale(1.2);
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        input[type="text"] {
+            width: 60%;
+            padding: 8px;
+            border: 1px solid var(--border-light);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        /* Light Mode */
+        .light-theme {
+            background-color: var(--background-light);
+            color: var(--text-light);
+        }
+        .light-theme .container {
+            background-color: var(--card-light);
+        }
+        .light-theme label {
+            background-color: var(--card-light);
+            border: 1px solid var(--border-light);
+        }
+        .light-theme button {
+            background-color: var(--button-light);
+            color: #fff;
+        }
+
+        /* Dark Mode */
+        .dark-theme {
+            background-color: var(--background-dark);
+            color: var(--text-dark);
+        }
+        .dark-theme .container {
+            background-color: var(--card-dark);
+        }
+        .dark-theme label {
+            background-color: var(--card-dark);
+            border: 1px solid var(--border-dark);
+        }
+        .dark-theme button {
+            background-color: var(--button-dark);
+            color: #fff;
+        }
+    </style>
+    <script>
+        const { ipcRenderer, nativeTheme } = require('electron');
+
+        // Function to apply the correct theme
+        function applyTheme(isDark) {
+            document.body.classList.remove('light-theme', 'dark-theme');
+            document.body.classList.add(isDark ? 'dark-theme' : 'light-theme');
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Apply the current theme on load
+            applyTheme(nativeTheme.shouldUseDarkColors);
+
+            // Listen for system theme changes and update live
+            ipcRenderer.on('theme-updated', (_, isDark) => {
+                applyTheme(isDark);
+            });
+
+            // Get initial settings
+            const autoLaunchEnabled = await ipcRenderer.invoke('toggle-auto-launch');
+            document.getElementById('autoLaunch').checked = autoLaunchEnabled;
+
+            const savedShortcut = await ipcRenderer.invoke('set-shortcut');
+            document.getElementById('shortcut').value = savedShortcut || 'Alt+Space';
+
+            // Handle Auto-Launch Toggle
+            document.getElementById('autoLaunch').addEventListener('change', (event) => {
+                ipcRenderer.invoke('toggle-auto-launch', event.target.checked);
+            });
+
+            // Handle Custom Shortcut Saving
+            document.getElementById('saveShortcut').addEventListener('click', async () => {
+                const shortcut = document.getElementById('shortcut').value;
+                const success = await ipcRenderer.invoke('set-shortcut', shortcut);
+                if (!success) {
+                    alert('Failed to register shortcut! Try another one.');
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Settings</h2>
+        
+        <label>
+            <span>Launch on Startup</span>
+            <input type="checkbox" id="autoLaunch">
+        </label>
+
+        <div class="input-group">
+            <label>Custom Shortcut:</label>
+            <input type="text" id="shortcut" placeholder="⌥ (Option) + Space">
+            <button id="saveShortcut">Save</button>
+        </div>
+    </div>
+</body>
+</html>

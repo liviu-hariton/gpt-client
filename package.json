@@ -1,0 +1,27 @@
+{
+  "name": "gpt-client",
+  "version": "1.0.0",
+  "description": "A simple application (built with Electron) that loads the [ChatGPT](https://chatgpt.com/) website and can be toggled using a global hotkey for easy access. The app supports persistent sessions (cookies and local storage) so that users remain logged in or remembered between sessions.",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "gpt",
+    "chatgpt",
+    "electron",
+    "app",
+    "intel",
+    "macos"
+  ],
+  "author": "Liviu Hariton",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^34.2.0"
+  },
+  "dependencies": {
+    "auto-launch": "^5.0.6",
+    "electron-store": "^10.0.1"
+  }
+}
