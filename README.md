@@ -1,4 +1,4 @@
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/liviu-hariton/gpt-client)
+![GitHub release (latest by date)](https://img.shields.io/github/v/1.0.0/liviu-hariton/gpt-client)
 ![GitHub issues](https://img.shields.io/github/issues/liviu-hariton/gpt-client)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/liviu-hariton/gpt-client)
 ![GitHub](https://img.shields.io/github/license/liviu-hariton/gpt-client)
