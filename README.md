@@ -65,4 +65,4 @@ npx electron-packager . ChatGPTClient --platform=darwin --arch=x64 --icon=assets
 This application and it's code are licensed under the MIT License. See the [LICENSE](LICENSE.md) file for more details.
 
 ### Disclaimer
-This tool, **ChatGTP client**, is provided "as is" and is intended for use by developers on macOS with Intel chips for using their ChatGPT account outside the web browser. See the [DISCLAIMER](DISCLAIMER.md) file for more details.
+This tool, **ChatGPT client**, is provided "as is" and is intended for use by developers on macOS with Intel chips for using their ChatGPT account outside the web browser. See the [DISCLAIMER](DISCLAIMER.md) file for more details.
